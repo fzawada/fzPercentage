@@ -36,6 +36,24 @@ namespace fzPercentage
             return value.Equals(other.value);
         }
 
+        public static bool operator ==(Percentage p1, Percentage p2)
+        {
+            if (ReferenceEquals(p1, null) && ReferenceEquals(p2, null))
+            {
+                return true;
+            }
+            if (ReferenceEquals(p1, null) || ReferenceEquals(p2, null))
+            {
+                return false;
+            }
+            return p1.Equals(p2);
+        }
+
+        public static bool operator !=(Percentage p1, Percentage p2)
+        {
+            return !(p1 == p2);
+        }
+
         public override int GetHashCode()
         {
             return value.GetHashCode();
