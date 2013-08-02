@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace fzPercentage
 {
-    public class Percentage
+    public class Percentage : IEquatable<Percentage>
     {
         private readonly double value;
 
@@ -29,6 +29,11 @@ namespace fzPercentage
         public override int GetHashCode()
         {
             return value.GetHashCode();
+        }
+
+        bool IEquatable<Percentage>.Equals(Percentage other)
+        {
+            return value.Equals(other.value);
         }
     }
 }
