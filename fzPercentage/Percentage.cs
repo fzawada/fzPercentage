@@ -15,6 +15,16 @@ namespace fzPercentage
             this.value = value;
         }
 
+        public static Percentage operator +(Percentage p1, Percentage p2)
+        {
+            return new Percentage(p1.value + p2.value);
+        }
+
+        public static Percentage operator -(Percentage p1, Percentage p2)
+        {
+            return new Percentage(p1.value - p2.value);
+        }
+
         public override bool Equals(object obj)
         {
             var other = obj as Percentage;
