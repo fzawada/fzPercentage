@@ -50,6 +50,7 @@
     <Compile Include="When_comparing.cs" />
     <Compile Include="When_dividing.cs" />
     <Compile Include="When_multiplying.cs" />
+    <Compile Include="When_parsing.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\fzPercentage\fzPercentage.csproj">

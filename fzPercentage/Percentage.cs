@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace fzPercentage
 {
@@ -59,6 +61,57 @@ namespace fzPercentage
         public static Percentage operator /(Percentage p1, Percentage p2)
         {
             return new Percentage(p1.value / (p2.value / 100));
+        }
+
+        public static Percentage Parse(string value)
+        {
+            return Parse(value, NumberStyles.Any, CultureInfo.InvariantCulture);
+        }
+
+        public static Percentage Parse(string value, IFormatProvider formatProvider)
+        {
+            return Parse(value, NumberStyles.Any, formatProvider);
+        }
+
+        public static Percentage Parse(string value, NumberStyles numberStyles)
+        {
+            return Parse(value, numberStyles, CultureInfo.InvariantCulture);
+        }
+
+        private const string Regex = @"(.*)(\% *)$";
+        public static Percentage Parse(string value, NumberStyles numberStyles, IFormatProvider formatProvider)
+        {
+            var removedTrailingPecentSign = System.Text.RegularExpressions.Regex.Replace(value, Regex, "$1");
+            if (removedTrailingPecentSign.Contains("%"))
+            {
+                throw new FormatException(value + " is not a correct Percentage");
+            }
+            var d = double.Parse(removedTrailingPecentSign, numberStyles, formatProvider);
+            return new Percentage(d);
+        }
+
+        public static bool TryParse(string value, out Percentage result)
+        {
+            return TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out result);
+        }
+
+        public static bool TryParse(string value, NumberStyles numberStyles, IFormatProvider formatProvider, out Percentage result)
+        {
+            var removedTrailingPecentSign = System.Text.RegularExpressions.Regex.Replace(value, Regex, "$1");
+            if (removedTrailingPecentSign.Contains("%"))
+            {
+                result = null;
+                return false;
+            }
+            double doubleResult;
+            if (!double.TryParse(value, numberStyles, formatProvider, out doubleResult))
+            {
+                result = null;
+                return false;
+            }
+
+            result = new Percentage(doubleResult);
+            return true;
         }
 
         public override bool Equals(object obj)
