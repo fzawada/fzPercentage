@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace fzPercentage
 {
@@ -23,6 +19,26 @@ namespace fzPercentage
         public static Percentage operator -(Percentage p1, Percentage p2)
         {
             return new Percentage(p1.value - p2.value);
+        }
+
+        public static Percentage operator *(Percentage p1, double d)
+        {
+            return new Percentage(p1.value * d);
+        }
+
+        public static Percentage operator *(Percentage p1, decimal d)
+        {
+            return new Percentage(p1.value * (double)d);
+        }
+
+        public static Percentage operator *(Percentage p1, long d)
+        {
+            return new Percentage(p1.value * d);
+        }
+
+        public static Percentage operator *(Percentage p1, Percentage p2)
+        {
+            return new Percentage(p1.value * p2.value/100);
         }
 
         public override bool Equals(object obj)
