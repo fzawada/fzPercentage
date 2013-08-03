@@ -41,6 +41,26 @@ namespace fzPercentage
             return new Percentage(p1.value * p2.value/100);
         }
 
+        public static Percentage operator /(Percentage p1, double d)
+        {
+            return new Percentage(p1.value / d);
+        }
+
+        public static Percentage operator /(Percentage p1, decimal d)
+        {
+            return new Percentage(p1.value / (double)d);
+        }
+
+        public static Percentage operator /(Percentage p1, long d)
+        {
+            return new Percentage(p1.value / d);
+        }
+
+        public static Percentage operator /(Percentage p1, Percentage p2)
+        {
+            return new Percentage(p1.value / (p2.value / 100));
+        }
+
         public override bool Equals(object obj)
         {
             var other = obj as Percentage;
@@ -78,6 +98,11 @@ namespace fzPercentage
         bool IEquatable<Percentage>.Equals(Percentage other)
         {
             return value.Equals(other.value);
+        }
+
+        public override string ToString()
+        {
+            return value + "%";
         }
     }
 }
